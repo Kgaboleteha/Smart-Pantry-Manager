@@ -1,26 +1,36 @@
 # Smart Pantry Manager
 
-## Overview
-Smart Pantry Manager is a native Android application built in Java designed to eliminate food waste by tracking ingredients users already have at home. The application uses a strict-matching algorithm to recommend only recipes that can be prepared immediately without requiring additional grocery purchases.
+A native Android application built in Java designed to cut food waste by tracking ingredients users actually have in their pantry and suggesting recipes they can cook immediately using strictly those items.
 
-## Technical Architecture
-- **Language**: Java
-- **Target SDK**: Android 8.0 (API 26) / Target API 34+
-- **Database**: SQLite (via SQLiteOpenHelper)
-  - *Rationale*: Chosen for robust local persistence, zero dependency on external network services, rapid offline queries, and strict compliance with the mobile persistence module curriculum.
-- **UI Architecture**: RecyclerView with custom Adapters, ConstraintLayout, and Material Design components.
+---
 
-## Core Features
-1. **Pantry Inventory CRUD**: Add, view, edit, and delete pantry items with quantity, unit, and optional expiry tracking.
-2. **Strict Recipe Matching**: Only suggests recipes where 100% of required ingredients exist in the user's pantry in sufficient quantities.
-3. **Pre-seeded Recipes**: Seeded SQLite database containing standard recipes ready on first launch.
-4. **Offline Resilience**: Full offline data persistence across app restarts.
+## Technical Architecture & Database Justification
+- **Platform / IDE**: Android Studio
+- **Language**: Java (Android SDK)
+- **Architecture Pattern**: Model-View-Adapter with SQLite persistence
+- **Database Engine**: SQLite via `SQLiteOpenHelper`
+  - *Technical Justification*: A food waste management app requires reliable, instantaneous offline access without network latency or reliance on external cloud services. Local SQLite provides robust relational integrity between recipes and their ingredients, executes queries in zero milliseconds, and guarantees that user pantry data persists across application restarts and device reboots.
 
-## Setup & Installation
-1. Clone the repository:
-   \\\ash
-   git clone https://github.com/Kgaboleteha/Smart-Pantry-Manager.git
-   \\\
-2. Open the project in Android Studio.
-3. Allow Gradle to sync dependencies.
-4. Select an Android Virtual Device (AVD) running API 26 or higher and click **Run (Shift + F10)**.
+---
+
+## Core Features & Functionality
+1. **Pantry Management (Full CRUD)**:
+   - Create new pantry items with custom quantity, measurement units, and optional expiry dates.
+   - Read and browse pantry items dynamically in a custom `RecyclerView`.
+   - Update existing ingredient quantities or details.
+   - Delete items with confirmation dialogs.
+2. **Strict Recipe Matching Rule (Core Logic)**:
+   - Recommends recipes only if 100% of required ingredients exist in the user's pantry in at least the required quantity.
+   - Robust ingredient normalization handling case-insensitivity, whitespace, and common plural/singular forms (e.g., *tomato* vs *tomatoes*, *egg* vs *eggs*).
+   - Dynamic UI feedback when zero recipes match the pantry.
+3. **Pre-Seeded Recipe Catalog**:
+   - Seeded SQLite database populated on first launch with 16 distinct household recipes.
+4. **Recipe Detail View**:
+   - Explicit Android `Intent` transitions passing recipe names, complete ingredient breakdowns, and step-by-step cooking instructions.
+
+---
+
+## Setup & Run Instructions
+1. Clone this repository:
+   ```bash
+   git clone [https://github.com/Kgaboleteha/Smart-Pantry-Manager.git](https://github.com/Kgaboleteha/Smart-Pantry-Manager.git)
